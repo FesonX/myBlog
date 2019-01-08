@@ -12,7 +12,6 @@ def user_login(request):
         if login_form.is_valid():
             # cleaned_data will return valid data as a dict, ignore invalid property
             cd = login_form.cleaned_data
-            # Authenticate via database, if doesn't exist, return None
             user = authenticate(username=cd['username'], password=cd['password'])
 
             if user:
