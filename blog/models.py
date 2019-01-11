@@ -9,7 +9,7 @@ class BlogArticles(models.Model):
     # In Django2.0, CASCADE is not a default value for on_delete
     author = models.ForeignKey(User, related_name="blog_posts", on_delete=models.CASCADE,)
     body = models.TextField()
-    publish = models.DateTimeField(default=timezone.now())
+    publish = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         # desc
