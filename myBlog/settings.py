@@ -127,3 +127,13 @@ STATICFILES_DIRS = (
 
 # Configure Redirect url
 LOGIN_REDIRECT_URL = '/blog/'
+
+# Config Email
+EMAIL_HOST = 'smtp.qq.com'
+EMAIL_HOST_USER = '******'
+EMAIL_HOST_PASSWORD = '******'
+EMAIL_PORT = 25
+
+# EMAIL_USE_TLS = False
+EMAIL_USE_TTL = True
+DEFAULT_FROM_EMAIL = "******"
