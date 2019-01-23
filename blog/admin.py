@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import BlogArticles
+from account.models import UserInfo
 
 
 # Register your models here.
@@ -13,3 +14,11 @@ class BlogArticlesAdmin(admin.ModelAdmin):
 
 
 admin.site.register(BlogArticles, BlogArticlesAdmin)
+
+
+class UserInfoAdmin(admin.ModelAdmin):
+    list_display = ('user', 'school', 'company', 'profession', 'address', 'about', 'photo')
+    list_filter = ('school', 'company', 'profession')
+
+
+admin.site.register(UserInfo, UserInfoAdmin)
