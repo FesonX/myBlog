@@ -24,4 +24,5 @@ urlpatterns = [
     # and does not work in Django 2.0. Set app_name in account/urls.py instead
     # url(r'^account/', include('account.urls', namespace='account', app_name='account')),
     url(r'^account/', include('account.urls')),
+    url(r'^article/', include('article.urls')),
 ]
