@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import BlogArticles
 from account.models import UserInfo
+from article.models import ArticleColumn
 
 
 # Register your models here.
@@ -22,3 +23,11 @@ class UserInfoAdmin(admin.ModelAdmin):
 
 
 admin.site.register(UserInfo, UserInfoAdmin)
+
+
+class ArticleColumnAdmin(admin.ModelAdmin):
+    list_display = ('column', 'created', 'user')
+    list_filter = ('column',)
+
+
+admin.site.register(ArticleColumn, ArticleColumnAdmin)
