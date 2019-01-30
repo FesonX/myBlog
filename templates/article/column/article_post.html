@@ -47,14 +47,6 @@ Article Column
                 height: 640,
                 path : "{% static 'editor/lib/' %}" // Autoload modules mode, codemirror, marked... dependents libs path
             });
-
-            /*
-            // or
-            var editor = editormd({
-                id   : "editormd",
-                path : "../lib/"
-            });
-            */
         });
     </script>
     <script type="text/javascript">
@@ -69,6 +61,7 @@ Article Column
             success: function (e) {
                 if(e == "1"){
                     layer.msg("Posted Successfully.");
+                    location.href = "{% url 'article:article_list' %}"
                 }else if(e == "2"){
                     layer.msg("Failed To POST.");
                 }else {

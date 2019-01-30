@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.urls import reverse
 from slugify import slugify
 
 
@@ -34,4 +35,4 @@ class ArticlePost(models.Model):
         super(ArticlePost, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reversed("article:article_detail", args=[self.id, self.slug])
+        return reverse("article:article_detail", args=[self.id, self.slug])
