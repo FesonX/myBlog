@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import ArticleColumn, ArticlePost
+import markdown
 
 
 def article_titles(request):
@@ -16,6 +17,9 @@ def article_titles(request):
     except EmptyPage:
         current_page = paginator.page(paginator.num_pages)
         articles = current_page.object_list
+
+    for article in articles:
+        article.body = markdown.markdown(article.body)
 
     return render(request, "article/list/article_titles.html", {"articles": articles,
                                                                 "page": current_page})
