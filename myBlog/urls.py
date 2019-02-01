@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.views.generic import TemplateView
 
 
 urlpatterns = [
@@ -25,4 +26,5 @@ urlpatterns = [
     # url(r'^account/', include('account.urls', namespace='account', app_name='account')),
     url(r'^account/', include('account.urls')),
     url(r'^article/', include('article.urls')),
+    url(r'home/', TemplateView.as_view(template_name="index.html"), name="index")
 ]
