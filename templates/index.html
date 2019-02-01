@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}
+Welcome To FesonX's Blog
+{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <h1>Hello You!</h1>
+    <h2>Django is a Python-based web framework for perfectionist.</h2>
+    <h3>Easy To Learn, Less To Code!</h3>
+    {% load staticfiles %}
+    <img class="center-block" width="50%" height="auto" style="border-radius: 10px"
+         src="{% static 'images/homepage.jpeg' %}" href="https://unsplash.com/@ryoji__iwata">
+    © Photo by <a href="https://unsplash.com/@ryoji__iwata">Ryoji Iwata</a> from Unsplash
+</div>
+{% endblock %}
