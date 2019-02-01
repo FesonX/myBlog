@@ -3,8 +3,9 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
+from django.urls import reverse
 from .forms import LoginForm, RegistrationForm, UserProfileForm, UserForm, UserInfoForm
-from .models import UserProfile, UserInfo
+from .models import UserProfile
 
 
 def user_login(request):
@@ -46,7 +47,7 @@ def register(request):
             # Save user_id in table account_userinfo
             UserInfo.objects.create(user=new_user)
 
-            return HttpResponse("Register Successfully")
+            return HttpResponse(reverse("account:user_login"))
         else:
             return HttpResponse("Sorry, failed to register")
     else:

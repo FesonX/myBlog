@@ -14,5 +14,7 @@ urlpatterns = [
     url(r'^del-article/$', views.del_article, name="del_article"),
     url(r'^edit-article/(?P<article_id>\d+)/$', views.edit_article, name="edit_article"),
     url(r'^list-article-titles/$', list_view.article_titles, name="article_titles"),
+    url(r'^list-article-titles/(?P<username>[-\w]+)/$', list_view.article_titles, name="author_titles"),
     url(r'^list-article-detail/(?P<id>\d+)/(?P<slug>[-\w]+)/$', list_view.article_detail, name="list_article_detail"),
+
 ]
