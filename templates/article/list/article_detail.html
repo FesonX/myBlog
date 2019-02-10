@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load article_tags %}
 {% load staticfiles %}
 {% block title %}Article Detail{% endblock %}
 {% block content %}
@@ -78,8 +79,9 @@
             </form>
             </div>
         </div>
+
         <div class="col-md-3">
-            <p class="text-center"><h3>Most Popular Article</h3></p>
+            <p><h3>Most Popular Articles</h3></p>
             <ol>
                 {% for article_rank in most_viewed %}
                     <li>
@@ -87,6 +89,19 @@
                     </li>
                 {% endfor %}
             </ol>
+        <hr>
+            <p><h3>Latest Articles</h3></p>
+            {% latest_articles %}
+        <hr>
+            <p><h3>Most Commented Articles</h3></p>
+            {% most_commented_articles as most_commented %}
+        <ol>
+            {% for article in most_commented %}
+                <li><a href="{{ article.get_url_path }}">{{ article.title }}</a> </li>
+
+            {% endfor %}
+
+        </ol>
         </div>
         </div>
 
