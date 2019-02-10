@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load article_tags %}
 {% load staticfiles %}
 {% block title %}Article Detail{% endblock %}
 {% block content %}
@@ -39,12 +40,48 @@
                         {% empty %}
                         <p class="text-center">Nobody shows attitude to this article.</p>
                     {% endfor %}
-
                 </div>
+            <hr>
+
+            </div>
+        <div>
+            <h3>
+                    {{ article.comments.count }}&nbsp;Comment{{ article.comments.count | pluralize }}</h3>
+                {% for comment in article.comments.all %}
+                <div>
+                    <p><strong>{{ comment.reviewer }}</strong>&nbsp;said:</p>
+                    <p style="margin-left: 40px">{{ comment.body }}</p>
+                </div>
+                    {% empty %}
+                    <p>No comment yet.</p>
+                {% endfor %}
+        <br>
+            <h3>Leave a comment</h3>
+            <form action="." method="post" class="form-horizontal" >
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">*Name</label>
+                    <div class="col-sm-10">
+                        {{ comment_form.reviewer }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">*Comment</label>
+                    <div class="col-sm-10">
+                        {{ comment_form.body }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <p><input type="submit" value="Post" class="btn btn-primary"></p>
+                    </div>
+                </div>
+            </form>
             </div>
         </div>
+
         <div class="col-md-3">
-            <p class="text-center"><h3>Most Popular Article</h3></p>
+            <p><h3>Most Popular Articles</h3></p>
             <ol>
                 {% for article_rank in most_viewed %}
                     <li>
@@ -52,6 +89,19 @@
                     </li>
                 {% endfor %}
             </ol>
+        <hr>
+            <p><h3>Latest Articles</h3></p>
+            {% latest_articles %}
+        <hr>
+            <p><h3>Most Commented Articles</h3></p>
+            {% most_commented_articles as most_commented %}
+        <ol>
+            {% for article in most_commented %}
+                <li><a href="{{ article.get_url_path }}">{{ article.title }}</a> </li>
+
+            {% endfor %}
+
+        </ol>
         </div>
         </div>
 
@@ -94,6 +144,7 @@ function like_article(id, action){
         }
     });
 }
+
 </script>
     {% endwith %}
 {% endblock %}

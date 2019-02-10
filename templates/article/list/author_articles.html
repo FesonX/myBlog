@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+{% load article_tags     %}
 {% load staticfiles %}
 
 {% block title %}
@@ -36,7 +37,7 @@ Articles
             {% endif %}
         </div>
         <div>
-            <p class="list-group-item">Name: {{ user.username }}</p>
+            <p class="list-group-item"><strong>{{ user.username }}</strong> has published {% author_total_articles user %} article(s)</p>
             {% if user_info %}
                 <p class="list-group-item">Company: {{ user_info.company }}</p>
                 <p class="list-group-item">About: {{ user_info.about }}</p>

@@ -5,7 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.http import HttpResponse
-from .models import ArticlePost
+from .models import ArticlePost, Comment
+from .forms import CommentForm
 from django.conf import settings
 import markdown
 import redis
@@ -69,13 +70,27 @@ def article_titles(request, username=None):
 
 def article_detail(request, id, slug):
     article = get_object_or_404(ArticlePost, id=id, slug=slug)
+    # plus one view and return total views
     total_views = r.incr("article:{}:views".format(article.id))
+    # name, mount, value
     r.zincrby('article_ranking', 1, article.id)
 
+    # get sorted set article_ranking's top10
     article_ranking = r.zrange('article_ranking', 0, -1, desc=True)[:10]
     article_ranking_ids = [int(id) for id in article_ranking]
-    most_viewed = list(ArticlePost.objects.filter(id__in=article_ranking_ids))
-    most_viewed.sort(key=lambda x: article_ranking_ids.index(x.id))
+    most_viewed_articles = list(ArticlePost.objects.filter(id__in=article_ranking_ids))
+    most_viewed_articles.sort(key=lambda x: article_ranking_ids.index(x.id))
+
+    if request.method == 'POST':
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.article = article
+            new_comment.save()
+    else:
+        comment_form = CommentForm()
+
     return render(request, "article/list/article_detail.html", {'article': article,
                                                                 'total_views': total_views,
-                                                                'most_viewed': most_viewed})
+                                                                'most_viewed': most_viewed_articles,
+                                                                'comment_form': comment_form})
