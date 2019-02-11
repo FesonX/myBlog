@@ -14,6 +14,14 @@ class ArticleColumn(models.Model):
         return self.column
 
 
+class ArticleTag(models.Model):
+    author = models.ForeignKey(User, related_name="tag", on_delete=models.CASCADE)
+    tag = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.tag
+
+
 class ArticlePost(models.Model):
     author = models.ForeignKey(User, related_name="article", on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
@@ -23,6 +31,7 @@ class ArticlePost(models.Model):
     created = models.DateTimeField(default=timezone.now())
     updated = models.DateTimeField(auto_now=True)
     wow = models.ManyToManyField(User, related_name="article_wow", blank=True)
+    article_tag = models.ManyToManyField(ArticleTag, related_name='article_tag')
 
     class Meta:
         ordering = ("title",)

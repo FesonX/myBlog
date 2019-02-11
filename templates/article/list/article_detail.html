@@ -17,6 +17,9 @@
                             {{ total_likes }}&nbsp;</span>
                         <span style="margin-left: 20px" >{{ total_views }}&nbsp;view{{ total_views | pluralize}}</span>
                     </p>
+                    <p><span style="margin-right: 10px"><strong>Tags:</strong></span>
+                        {# DO NOT leave space before 'join' #}
+                        {{ article.article_tag.all | join:"," }} </p>
                 </header>
                 <hr>
                 <link rel="stylesheet" href="{% static 'editor/css/editormd.preview.css' %}" />
@@ -80,29 +83,29 @@
             </div>
         </div>
 
-        <div class="col-md-3">
-            <p><h3>Most Popular Articles</h3></p>
-            <ol>
-                {% for article_rank in most_viewed %}
-                    <li>
-                    <a href="{{ article_rank.get_url_path }}">{{ article_rank.title }}</a>
-                    </li>
-                {% endfor %}
-            </ol>
-        <hr>
-            <p><h3>Latest Articles</h3></p>
-            {% latest_articles %}
-        <hr>
-            <p><h3>Most Commented Articles</h3></p>
-            {% most_commented_articles as most_commented %}
-        <ol>
-            {% for article in most_commented %}
-                <li><a href="{{ article.get_url_path }}">{{ article.title }}</a> </li>
+            <div class="col-md-3">
+                <p><h3>Most Popular Articles</h3></p>
+                <ol>
+                    {% for article_rank in most_viewed %}
+                        <li>
+                        <a href="{{ article_rank.get_url_path }}">{{ article_rank.title }}</a>
+                        </li>
+                    {% endfor %}
+                </ol>
+            <hr>
+                <p><h3>Latest Articles</h3></p>
+                {% latest_articles %}
+            <hr>
+                <p><h3>Most Commented Articles</h3></p>
+                {% most_commented_articles as most_commented %}
+                <ol>
+                    {% for article in most_commented %}
+                        <li><a href="{{ article.get_url_path }}">{{ article.title }}</a> </li>
 
-            {% endfor %}
+                    {% endfor %}
 
-        </ol>
-        </div>
+                </ol>
+            </div>
         </div>
 
 <script src='{% static "js/jquery.js" %}'></script>

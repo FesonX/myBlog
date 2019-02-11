@@ -14,6 +14,7 @@ Article Column
             <div class="col-md-2 text-right"><span>Title:</span></div>
             <div class="col-md-10 text-left">{{ article_post_form.title }}</div>
         </div>
+
         <div class="row" style="margin-top: 10px;">
             <div class="col-md-2 text-right"><span>Column:</span></div>
             <div class="col-md-10 text-left">
@@ -24,6 +25,21 @@ Article Column
                 </select>
             </div>
         </div>
+
+        <div class="row" style="margin-top: 10px">
+            <div class="col-md-2 text-right"><span>Tag:</span></div>
+            <div class="col-md-10 text-left">
+                {% for tag in article_tags %}
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="{{ tag.id }}" name="article_tag"
+                               value="{{ tag.tag }}">{{ tag.tag }}
+                    </label>
+                    {% empty %}
+                    <p>Not tag yet.</p>
+                {% endfor %}
+            </div>
+        </div>
+
         <div class="row" style="margin-top: 10px;">
             <div class="col-md-2 text-right"><span>Content:</span></div>
             {# Markdown Editor #}
@@ -39,6 +55,7 @@ Article Column
 </div>
     <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/layer.js' %}"></script>
+    <script type="text/javascript" src="https://github.com/douglascrockford/JSON-js/blob/master/json2.js"></script>
     <script src="{% static 'editor/editormd.min.js' %}"></script>
     <script type="text/javascript">
         $(function() {
@@ -54,10 +71,14 @@ Article Column
         var title = $("#id_title").val();
         var column_id = $("#which_column").val();
         var body = $("#id_body").val();
+        var article_tags = [];
+        $.each($("input[name='article_tag']:checked"),
+        function () {article_tags.push($(this).val());
+        });
         $.ajax({
             url: "{% url 'article:article_post' %}",
             type: "POST",
-            data: {"title": title, "body": body, "column_id": column_id},
+            data: {"title": title, "body": body, "column_id": column_id, 'tags': JSON.stringify(article_tags)},
             success: function (e) {
                 if(e == "1"){
                     layer.msg("Posted Successfully.");
