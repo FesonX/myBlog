@@ -6,6 +6,9 @@
     <header>
         <h1>{{ article.title }}</h1>
         <p>{{ user.username }}</p>
+        <p><span style="margin-right: 10px"><strong>Tags:</strong></span>
+            {# DO NOT leave space before 'join' #}
+                        {{ article.article_tag.all | join:", " }} </p>
     </header>
 
     <link rel="stylesheet" href="{% static 'editor/css/editormd.preview.css' %}" />
