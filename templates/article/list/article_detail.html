@@ -105,6 +105,13 @@
                     {% endfor %}
 
                 </ol>
+            <hr>
+                <p><h3>You Might Like...</h3></p>
+                {% for article in similar_articles %}
+                    <p><a href="{{ article.get_url_path }}">{{ article.title }}</a></p>
+                    {% empty %}
+                    <p>Oops, no articles to shown.</p>
+                {% endfor %}
             </div>
         </div>
 
