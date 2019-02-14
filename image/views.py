@@ -44,3 +44,8 @@ def del_image(request):
     except Exception as e:
         print(e)
         return JsonResponse({"status": "2"})
+
+
+def images_fall(request):
+    images = Image.objects.all()
+    return render(request, 'image/images_fall.html', {'images': images})
