@@ -16,6 +16,8 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.views.generic import TemplateView
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -26,5 +28,8 @@ urlpatterns = [
     # url(r'^account/', include('account.urls', namespace='account', app_name='account')),
     url(r'^account/', include('account.urls')),
     url(r'^article/', include('article.urls')),
-    url(r'home/', TemplateView.as_view(template_name="index.html"), name="index")
+    url(r'home/', TemplateView.as_view(template_name="index.html"), name="index"),
+    url(r'^image/', include('image.urls')),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

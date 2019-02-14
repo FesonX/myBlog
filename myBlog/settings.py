@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'blog',
     'account',
     'article',
+    'image',
+    'sorl.thumbnail',
 ]
 
 MIDDLEWARE = [
@@ -139,6 +141,11 @@ EMAIL_PORT = 25
 EMAIL_USE_TTL = True
 DEFAULT_FROM_EMAIL = "******"
 
+# Config Redis
 REDIS_HOST = 'localhost'
 REDIS_PORT = 6379
 REDIS_DB = 0
+
+# Image Configuration
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
