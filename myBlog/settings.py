@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'account',
     'article',
     'image',
+    'sorl.thumbnail',
 ]
 
 MIDDLEWARE = [

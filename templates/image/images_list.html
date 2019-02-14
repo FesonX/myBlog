@@ -2,6 +2,8 @@
 
 {% load staticfiles %}
 
+{% load thumbnail %}
+
 {% block title %}
 Images Manage
 {% endblock %}
@@ -22,7 +24,9 @@ Images Manage
             <tr>
                 <td>{{ forloop.counter }}</td>
                 <td>{{ image.title }}</td>
-                <td><img src="{{ image.image.url }}" width="100px"></td>
+                {% thumbnail image.image "100x100" as im %}
+                <td><img src="{{ im.url }}"></td>
+                {% endthumbnail %}
                 <td><a name="delete" href="javascript:" onclick="del_image(this, {{ image.id }})">
                     <span class="glyphicon glyphicon-trash" style="margin-left: 20px"></span>
                 </a></td>
