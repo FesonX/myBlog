@@ -43,7 +43,8 @@ def rename_article_column(request):
         result.column = column_name
         result.save()
         return HttpResponse("1")
-    except:
+    except Exception as e:
+        print(e)
         return HttpResponse('0')
 
 
@@ -56,7 +57,8 @@ def del_article_column(request):
         result = ArticleColumn.objects.get(id=column_id)
         result.delete()
         return HttpResponse("1")
-    except:
+    except Exception as e:
+        print(e)
         return HttpResponse("0")
 
 
@@ -97,7 +99,7 @@ def article_post(request):
 @login_required(login_url='/account/login/')
 def article_list(request):
     articles = ArticlePost.objects.filter(author=request.user)
-    paginator = Paginator(articles, 2)
+    paginator = Paginator(articles, 5)
     page = request.GET.get('page')
     try:
         current_page = paginator.page(page)
