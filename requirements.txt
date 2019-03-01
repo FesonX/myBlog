@@ -14,3 +14,4 @@ six==1.12.0
 sorl-thumbnail==12.5.0
 Unidecode==0.4.21
 wordcloud==1.5.0
+pymysql==0.9.3

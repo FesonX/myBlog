@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.http import HttpResponse
-from .models import ArticlePost, Comment
+from .models import ArticlePost
 from .forms import CommentForm
 from django.conf import settings
 from django.db.models import Count
@@ -30,7 +30,8 @@ def like_article(request):
                 return HttpResponse("1")
             else:
                 return HttpResponse("2")
-        except:
+        except Exception as e:
+            print(e)
             return HttpResponse("no")
 
 
@@ -40,12 +41,13 @@ def article_titles(request, username=None):
         articles_title = ArticlePost.objects.filter(author=user)
         try:
             user_info = user.userinfo
-        except:
+        except Exception as e:
+            print(e)
             user_info = None
     else:
         articles_title = ArticlePost.objects.all()
 
-    paginator = Paginator(articles_title, 2)
+    paginator = Paginator(articles_title, 5)
     page = request.GET.get('page')
     try:
         current_page = paginator.page(page)
