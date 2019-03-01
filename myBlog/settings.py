@@ -25,7 +25,7 @@ SECRET_KEY = '1poemi-1^5@q3-o^a0k6%$)91um0%s7*3o$m$sk9%i(-xuc+yq'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -129,7 +129,7 @@ STATICFILES_DIRS = (
 )
 
 # Configure Redirect url
-LOGIN_REDIRECT_URL = '/home/'
+LOGIN_REDIRECT_URL = '/'
 
 # Config Email
 EMAIL_HOST = 'smtp.qq.com'
