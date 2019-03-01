@@ -77,8 +77,11 @@ def article_post(request):
                     for _tag in json.loads(tags):
                         _tag = request.user.tag.get(tag=_tag)
                         new_article.article_tag.add(_tag)
+                print("Success")
                 return HttpResponse("1")
-            except:
+            except Exception as e:
+                print(e)
+                print("Fail")
                 return HttpResponse("2")
         else:
             return HttpResponse("3")
@@ -126,7 +129,8 @@ def del_article(request):
         article = ArticlePost.objects.get(id=article_id)
         article.delete()
         return HttpResponse("1")
-    except:
+    except Exception as e:
+        print(e)
         return HttpResponse("2")
 
 
@@ -157,8 +161,10 @@ def edit_article(request, article_id):
                     _tag = request.user.tag.get(tag=_tag)
                     re_article.article_tag.add(_tag)
             re_article.save()
+            print("Success")
             return HttpResponse("1")
-        except:
+        except Exception as e:
+            print(e)
             return HttpResponse("2")
 
 
@@ -178,7 +184,8 @@ def article_tag(request):
                 new_tag.author = request.user
                 new_tag.save()
                 return HttpResponse("1")
-            except:
+            except Exception as e:
+                print(e)
                 return HttpResponse("Failed to save data.")
         else:
             return HttpResponse("Invalid Form")
@@ -192,6 +199,6 @@ def del_article_tag(request):
         tag = ArticleTag.objects.get(id=tag_id)
         tag.delete()
         return HttpResponse("1")
-    except:
-        pass
+    except Exception as e:
+        print(e)
     return HttpResponse("2")
