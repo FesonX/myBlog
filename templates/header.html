@@ -14,7 +14,6 @@
 
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav" role="navigation">
-                    <li><a href="{% url 'blog:blog_title' %}">Blog</a> </li>
                     <li><a href="{% url  'article:article_titles' %}">Posts</a></li>
                     <li><a href="{% url 'image:images_fall' %}">Moments</a></li>
                 </ul>
@@ -26,7 +25,7 @@
 					<ul class="nav navbar-nav navbar-right">
 
                             {% if user.is_authenticated %}
-                                <li><a href="#">{{ user.username }}</a></li>
+                                <li><a href="{% url 'account:my_information' %}">{{ user.username }}</a></li>
                                 <li><a href="{% url 'account:user_logout' %}">Logout</a></li>
                             {% else %}
                                 <li><a href="{% url 'account:user_login' %}">LOGIN</a></li>
