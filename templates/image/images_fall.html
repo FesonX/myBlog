@@ -15,8 +15,11 @@ Moments
                     <img src="{{ image.image.url }}"></a>
                 <p>{{ image.title }}</p>
             </div>
-        {% endfor %}
+
     </div>
+    {% empty %}
+            <h3 style="color:darkgrey" class="list-group-item">Oops, no images to be shown...</h3>
+    {% endfor %}
 </div>
 
 

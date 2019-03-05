@@ -84,34 +84,37 @@
         </div>
 
             <div class="col-md-3">
-                <p><h3>Most Popular Articles</h3></p>
-                <ol>
-                    {% for article_rank in most_viewed %}
-                        <li>
-                        <a href="{{ article_rank.get_url_path }}">{{ article_rank.title }}</a>
-                        </li>
-                    {% endfor %}
-                </ol>
-            <hr>
-                <p><h3>Latest Articles</h3></p>
-                {% latest_articles %}
-            <hr>
-                <p><h3>Most Commented Articles</h3></p>
-                {% most_commented_articles as most_commented %}
-                <ol>
-                    {% for article in most_commented %}
-                        <li><a href="{{ article.get_url_path }}">{{ article.title }}</a> </li>
+                <div class="list-group">
+                    <h3 class="list-group-item-heading" style="color: darkgrey">Most Popular Articles</h3>
+                        {% for article_rank in most_viewed %}
+                            <a style="color:#528CE0" class="list-group-item" href="{{ article_rank.get_url_path }}">
+                                {{ article_rank.title }}</a>
+                            {% empty %}
+                            <p style="color:darkgrey" class="list-group-item">Oops, no articles to be shown.</p>
+                        {% endfor %}
+                <hr>
+                    <h3 class="list-group-item-heading" style="color: darkgrey">Latest Articles</h3>
+                    {% latest_articles %}
 
-                    {% endfor %}
+                <hr>
+                    <h3 class="list-group-item-heading" style="color: darkgrey">Most Commented Articles</h3>
+                    {% most_commented_articles as most_commented %}
+                        {% for article in most_commented %}
+                            <a style="color:#528CE0" class="list-group-item" href="{{ article.get_url_path }}">
+                                {{ article.title }}</a>
+                            {% empty %}
+                            <p style="color:darkgrey" class="list-group-item">Oops, no articles to be shown.</p>
+                        {% endfor %}
 
-                </ol>
-            <hr>
-                <p><h3>You Might Like...</h3></p>
-                {% for article in similar_articles %}
-                    <p><a href="{{ article.get_url_path }}">{{ article.title }}</a></p>
-                    {% empty %}
-                    <p>Oops, no articles to shown.</p>
-                {% endfor %}
+                <hr>
+                    <h3 class="list-group-item-heading" style="color: darkgrey">You Might Like...</h3>
+                    {% for article in similar_articles %}
+                        <a style="color:#528CE0" class="list-group-item" href="{{ article.get_url_path }}">
+                                {{ article.title }}</a>
+                        {% empty %}
+                            <p style="color:darkgrey" class="list-group-item">Oops, no articles to be shown.</p>
+                    {% endfor %}
+                </div>
             </div>
         </div>
 
