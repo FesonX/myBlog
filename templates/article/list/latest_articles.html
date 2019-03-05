@@ -1,7 +1,7 @@
-<ul>
-    {% for article in latest_articles %}
-        <li>
-        <a href="{{ article.get_url_path }}">{{ article.title }}</a>
-        </li>
-    {% endfor %}
-</ul>
+
+{% for article in latest_articles %}
+    <a style="color:#528CE0" class="list-group-item" href="{{ article.get_url_path }}">
+        {{ article.title }}</a>
+    {% empty %}
+    <p style="color:darkgrey" class="list-group-item">Oops, no articles to be shown.</p>
+{% endfor %}
