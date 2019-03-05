@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}
+About Me
+{% endblock %}
+
+{% block content %}
+    {% load staticfiles %}
+
+<div class="text-center" style="color: dimgray; ">
+    <h1>About Me</h1>
+    <img src="{% static 'images/profile.jpeg' %}" alt="FesonX" width="100px" >
+    <h3>A CS Student With No Technology Bias.</h3>
+    <img src="https://upload-images.jianshu.io/upload_images/5530017-34f47d61414ed4cd.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+         width="50%" style="border-radius: 10px">
+    <h5 >简书Blog: <a href="https://www.jianshu.com/u/cfb30b95d7ea">FesonX</a></h5>
+</div>
+{% endblock %}

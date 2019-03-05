@@ -32,6 +32,7 @@ urlpatterns = [
     url(r'^article/', include('article.urls')),
     url(r'^$', TemplateView.as_view(template_name="index.html"), name="index"),
     url(r'^image/', include('image.urls')),
+    url(r'^about$', TemplateView.as_view(template_name="about.html"), name="about"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
