@@ -93,7 +93,7 @@ def article_detail(request, id, slug):
     else:
         comment_form = CommentForm()
 
-    article_tags = request.user.tag.all()
+    article_tags = article.article_tag.all()
     article_tags_ids = article.article_tag.values_list("id", flat=True)
     similar_articles = ArticlePost.objects.filter(article_tag__in=article_tags_ids).exclude(id=article.id)
     similar_articles = similar_articles.annotate(same_tags=Count("article_tag")).\
