@@ -69,7 +69,7 @@ Edit Article
 <script type="text/javascript" src='{% static "js/jquery.js" %}'></script>
 <script type="text/javascript" src='{% static "editor/editormd.min.js" %}'></script>
 <script type="text/javascript" src="{% static 'js/layer.js'%}"></script>
-<script type="text/javascript" src="https://github.com/douglascrockford/JSON-js/blob/master/json2.js"></script>
+<script type="text/javascript" src="{% static 'js/json2.js' %}"></script>
 <script type="text/javascript">
 $(function() {
     var editor = editormd("editormd", {
