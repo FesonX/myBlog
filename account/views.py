@@ -76,21 +76,18 @@ def myself_edit(request):
         else UserInfo.objects.create(user=request.user)
 
     if request.method == 'POST':
-        print('Coming')
         user_form = UserForm(request.POST)
         userprofile_form = UserProfileForm(request.POST)
         print(userprofile_form)
         print(userprofile_form.is_valid())
         userinfo_form = UserInfoForm(request.POST)
         if user_form.is_valid() * userprofile_form.is_valid() * userinfo_form.is_valid():
-            print('coming')
             user_cd = user_form.cleaned_data
             userprofile_cd = userprofile_form.cleaned_data
             userinfo_cd = userinfo_form.cleaned_data
             request.user.email = user_cd['email']
             userprofile.birth = userprofile_cd['birth']
             userprofile.phone = userprofile_cd['phone']
-            print(userprofile_cd['phone'])
             userinfo.school = userinfo_cd['school']
             userinfo.company = userinfo_cd['company']
             userinfo.profession = userinfo_cd['profession']
