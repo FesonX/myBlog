@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.http import HttpResponse
-from .models import ArticlePost
+from .models import ArticlePost, ArticleTag, ArticleColumn
 from .forms import CommentForm
 from django.conf import settings
 from django.db.models import Count
@@ -36,6 +36,8 @@ def like_article(request):
 
 
 def article_titles(request, username=None):
+    tag = request.GET.get('tag')
+    # Get Articles
     if username:
         user = User.objects.get(username=username)
         articles_title = ArticlePost.objects.filter(author=user)
@@ -44,9 +46,13 @@ def article_titles(request, username=None):
         except Exception as e:
             print(e)
             user_info = None
+    elif tag:
+        article_tag = ArticleTag.objects.get(tag=tag)
+        articles_title = ArticlePost.objects.filter(article_tag=article_tag)
     else:
         articles_title = ArticlePost.objects.all()
 
+    # Paginator
     paginator = Paginator(articles_title, 5)
     page = request.GET.get('page')
     try:
@@ -59,16 +65,26 @@ def article_titles(request, username=None):
         current_page = paginator.page(paginator.num_pages)
         articles = current_page.object_list
 
+    # To Generate Summary
     for article in articles:
         article.body = markdown.markdown(article.body)
+
+    tags = ArticleTag.objects.all()
 
     if username:
         return render(request, "article/list/author_articles.html", {"articles": articles,
                                                                     "page": current_page,
                                                                     "user_info": user_info,
-                                                                    "user": user})
+                                                                    "user": user,
+                                                                     "tags": tags})
+    if tag:
+        return render(request, "article/list/article_titles.html", {"articles": articles,
+                                                                    "page": current_page,
+                                                                    "article_tag": article_tag,
+                                                                    "tags": tags})
     return render(request, "article/list/article_titles.html", {"articles": articles,
-                                                                "page": current_page})
+                                                                "page": current_page,
+                                                                "tags": tags})
 
 
 def article_detail(request, id, slug):

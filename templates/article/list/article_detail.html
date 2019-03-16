@@ -18,8 +18,11 @@
                         <span style="margin-left: 20px" >{{ total_views }}&nbsp;view{{ total_views | pluralize}}</span>
                     </p>
                     <p><span style="margin-right: 10px"><strong>Tags:</strong></span>
-                        {# DO NOT leave space before 'join' #}
-                        {{ article.article_tag.all | join:"," }} </p>
+                        {% for article_tag in article_tags %}
+                            <span class="label" style="background-color: darkgray">
+                            <a href="/article/list-article-titles/?tag={{ article_tag }}" style="color: white">
+                                {{ article_tag }}</a></span>&nbsp;
+                        {% endfor %}</p>
                 </header>
                 <hr>
                 <link rel="stylesheet" href="{% static 'editor/css/editormd.preview.css' %}" />

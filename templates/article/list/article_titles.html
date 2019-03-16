@@ -10,7 +10,19 @@ Articles
 <div class="row text-center vertical-middle-sm">
     <h1 style="color: gray">Recent Posts</h1>
     <p style="color: #848484">Here are {% total_articles %} articles for you.</p>
+
+
+    {% for tag in tags %}
+        <span class="label" contenteditable="false" style="background-color: darkgray;">
+            <a href="/article/list-article-titles/?tag={{ tag.tag }}" style="color: white;">{{ tag.tag }}</a>
+        </span>&nbsp;
+    {% endfor %}
+    {% if article_tag %}
+        <h4 style="color: #848484">Articles Tagged With <strong>{{ article_tag }}</strong></h4>
+    {% else %}
+    {% endif %}
 </div>
+    <p></p>
     <div class="container">
     {% for article in articles %}
     <div class="list-group">
@@ -21,6 +33,10 @@ Articles
                 {{ article.author.username}}</a></p>
             <p class="list-group-item" style="color: slategrey">Summary: {{ article.body|slice:'100'|striptags }}...</p>
     </div>
+        {% empty %}
+        <div class="list-group">
+            <h2 class="list-group-header">No Article with tag "{{ article_tag }}"</h2>
+        </div>
     {% endfor %}
     {% include "paginator.html" %}
 
