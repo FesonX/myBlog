@@ -24,7 +24,6 @@ from django.conf.urls.static import static
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^favicon.ico$', RedirectView.as_view(url=r'static/favicon.ico')),
-    url(r'^blog/', include('blog.urls')),
     # Using app_name with include is deprecated in Django 1.9
     # and does not work in Django 2.0. Set app_name in account/urls.py instead
     # url(r'^account/', include('account.urls', namespace='account', app_name='account')),
