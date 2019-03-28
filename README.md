@@ -8,7 +8,7 @@ Python3 | MySQL | Redis
 由于个人邮箱容易凉, 暂不提供修改密码功能, 有需要请自行 Fork 后测试, 在 Settings.py 修改.
 
 ## 功能
-1. 基本文章增删改(可根据作者过滤文章)
+1. 基本文章增删改(可根据作者/标签过滤文章)
 2. 页面流量统计功能, 基于Redis
 3. 评论功能
 
@@ -23,7 +23,7 @@ Developed by Django 2.1
 
 Python3 | MySQL | Redis
 
-View the site:[**Welcome To FesonX's Blog**](http://47.106.99.45/)
+View the site:[**Welcome To FesonX's Blog**](http://feson.tech/)
 
 ## Features
 1. Basic Article Post/Edit/Delete
