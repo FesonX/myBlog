@@ -19,11 +19,23 @@ from django.views.generic import TemplateView
 from django.views.generic.base import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.sitemaps import views
+from django.contrib.sitemaps import GenericSitemap
+from article.models import ArticlePost
+
+
+info_dict = {
+    'queryset': ArticlePost.objects.all(),
+    'date_field': 'created',
+}
 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^favicon.ico$', RedirectView.as_view(url=r'static/favicon.ico')),
+    url(r'^sitemap\.xml$', views.sitemap,
+        {'sitemaps': {'blog': GenericSitemap(info_dict, priority=0.8)}},
+        name='django.contrib.sitemaps.views.sitemap'),
     # Using app_name with include is deprecated in Django 1.9
     # and does not work in Django 2.0. Set app_name in account/urls.py instead
     # url(r'^account/', include('account.urls', namespace='account', app_name='account')),
