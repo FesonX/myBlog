@@ -21,7 +21,8 @@ Articles
                         href="{% url 'article:author_titles' article.author.username %}">
                             {{ article.author.username}}</a></p>
                     <p class="list-group-item" style="color: slategrey">
-                        Summary: {{ article.body|slice:'100'|striptags }}...</p>
+                        Summary: {{ article.body|slice:'100'}}...
+                    <h6 class="text-right" style="color: #848484">Posted At: {{ article.created }}</h6></p>
                 </div>
             {% endfor %}
             {% include "paginator.html" %}
