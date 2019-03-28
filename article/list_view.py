@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.http import HttpResponse
-from .models import ArticlePost, ArticleTag, ArticleColumn
+from .models import ArticlePost, ArticleTag
 from .forms import CommentForm
 from django.conf import settings
 from django.db.models import Count
@@ -40,7 +40,7 @@ def article_titles(request, username=None):
     # Get Articles
     if username:
         user = User.objects.get(username=username)
-        articles_title = ArticlePost.objects.filter(author=user)
+        articles_title = ArticlePost.objects.filter(author=user).order_by('-id')
         try:
             user_info = user.userinfo
         except Exception as e:
@@ -48,9 +48,9 @@ def article_titles(request, username=None):
             user_info = None
     elif tag:
         article_tag = ArticleTag.objects.get(tag=tag)
-        articles_title = ArticlePost.objects.filter(article_tag=article_tag)
+        articles_title = ArticlePost.objects.filter(article_tag=article_tag).order_by('-id')
     else:
-        articles_title = ArticlePost.objects.all()
+        articles_title = ArticlePost.objects.all().order_by('-id')
 
     # Paginator
     paginator = Paginator(articles_title, 5)
@@ -67,7 +67,8 @@ def article_titles(request, username=None):
 
     # To Generate Summary
     for article in articles:
-        article.body = markdown.markdown(article.body)
+        from django.utils.html import strip_tags
+        article.body = strip_tags(markdown.markdown(article.body))
 
     tags = ArticleTag.objects.all()
 
@@ -113,7 +114,7 @@ def article_detail(request, id, slug):
     article_tags_ids = article.article_tag.values_list("id", flat=True)
     similar_articles = ArticlePost.objects.filter(article_tag__in=article_tags_ids).exclude(id=article.id)
     similar_articles = similar_articles.annotate(same_tags=Count("article_tag")).\
-        order_by('-same_tags', '-created')[:4]
+        order_by('-same_tags', 'created')[:4]
 
     return render(request, "article/list/article_detail.html", {'article': article,
                                                                 'total_views': total_views,
