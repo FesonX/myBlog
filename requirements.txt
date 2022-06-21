@@ -2,7 +2,7 @@ awesome-slugify==1.6.5
 Django==2.2.10
 Markdown==3.0.1
 mongoengine==0.9.0
-numpy==1.16.1
+numpy==1.22.0
 pandas==0.22.0
 Pillow==6.2.0
 pymongo==2.9.5
